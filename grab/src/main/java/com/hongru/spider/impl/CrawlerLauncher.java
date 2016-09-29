@@ -1,5 +1,6 @@
 package com.hongru.spider.impl;
 
+import com.hongru.common.lucene.conf.ConfigManager;
 import com.hongru.spider.LeoCrawler;
 import com.hongru.spider.SpiderLauncher;
 import edu.uci.ics.crawler4j.crawler.CrawlConfig;
@@ -15,8 +16,9 @@ public class CrawlerLauncher implements SpiderLauncher {
 
     //数据保存目录
     private static final String crawlStorageFolder = "./data/craw/root";
+
     //爬虫数量
-    private static final int numberOfCrawlers = 7;
+    private static final int numberOfCrawlers = 10;
     /**
      * A -> B -> C -> D
      Since, "A" is a seed page, it will have a depth of 0.
@@ -26,12 +28,15 @@ public class CrawlerLauncher implements SpiderLauncher {
      it won't crawl page "D". To set the maximum depth you can use:
      */
     //抓取深度
-    private static final int maxDepthOfCrawling = 7;
-    //延迟毫秒数 Politeness delay in milliseconds (delay between sending two requests to the same host).
-    private static final int politenessDelay = 1;
+    private static final int maxDepthOfCrawling = 9;
+    //延迟毫秒数 Politeness delay in milliseconds (delay between sending two requests to the same host).默认200毫秒.
+    private static final int politenessDelay = 200;
 
     //模拟User-Agent
     private static final String userAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36";
+
+
+    private CrawlController controller;
 
     @Override
     public void spiderLaunch() {
@@ -49,7 +54,6 @@ public class CrawlerLauncher implements SpiderLauncher {
         PageFetcher pageFetcher = new PageFetcher(config);
         RobotstxtConfig robotstxtConfig = new RobotstxtConfig();
         RobotstxtServer robotstxtServer = new RobotstxtServer(robotstxtConfig, pageFetcher);
-        CrawlController controller = null;
         try {
             controller = new CrawlController(config, pageFetcher, robotstxtServer);
         } catch (Exception e) {
@@ -63,13 +67,20 @@ public class CrawlerLauncher implements SpiderLauncher {
          * which are found in these pages
          */
         controller.addSeed("http://www.163.com/");
-        controller.addSeed("http://www.csdn.com/");
+        controller.addSeed("http://www.csdn.net/");
         controller.addSeed("http://hongru.com/");
 
         /*
          * Start the crawl. This is a blocking operation, meaning that your code
          * will reach the line after this only when crawling is finished.
          */
-        controller.start(LeoCrawler.class, numberOfCrawlers);
+        controller.startNonBlocking(LeoCrawler.class, numberOfCrawlers);
+    }
+
+    @Override
+    public void shutdown() {
+        controller.shutdown();
+        controller.waitUntilFinish();
+        ConfigManager.closeIndexWriter();
     }
 }

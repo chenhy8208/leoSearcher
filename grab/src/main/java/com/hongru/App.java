@@ -18,6 +18,14 @@ public class App
        //启动爬虫
         SpiderLauncher spiderLauncher = new CrawlerLauncher();
         spiderLauncher.spiderLaunch();
+
+        //关闭爬虫
+        Runtime.getRuntime().addShutdownHook(new Thread(){
+            @Override
+            public void run() {
+                spiderLauncher.shutdown();
+            }
+        });
     }
 
     private static final Logger logger = LogManager.getLogger(App.class);

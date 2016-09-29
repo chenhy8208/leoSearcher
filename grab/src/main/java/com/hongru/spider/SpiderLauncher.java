@@ -5,4 +5,5 @@ package com.hongru.spider;
  */
 public interface SpiderLauncher {
     public void spiderLaunch();
+    public void shutdown();
 }

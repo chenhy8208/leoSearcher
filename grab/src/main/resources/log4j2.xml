@@ -25,13 +25,13 @@
 
 	<loggers>
 		<!-- auction logger -->
-		<logger name="com.hongru" level="warn" additivity="false">
+		<logger name="com.hongru" level="info" additivity="false">
 			<appender-ref ref="logFile" />
 			<appender-ref ref="Console" />
 		</logger>
 
 		<!-- Root Logger -->
-		<root level="warn" includeLocation="true">
+		<root level="info" includeLocation="true">
 			<appender-ref ref="Console" />
 		</root>
 	</loggers>
