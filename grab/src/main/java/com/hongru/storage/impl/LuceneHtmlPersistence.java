@@ -1,5 +1,6 @@
 package com.hongru.storage.impl;
 
+import com.hongru.common.lucene.IndexDao;
 import com.hongru.domain.WebHtml;
 import com.hongru.filter.GrabFilter;
 import com.hongru.filter.impl.XHRFilter;
@@ -23,6 +24,9 @@ public class LuceneHtmlPersistence implements HtmlPersistence{
         GrabFilter grabFilter = new XHRFilter();
         if (!grabFilter.filter(webHtml)) return; //没有通过过滤不保存
 
+        //保存
+        IndexDao indexDao = new IndexDao();
+        indexDao.save(webHtml);
     }
 
     private static final Logger logger = LogManager.getLogger(LuceneHtmlPersistence.class);

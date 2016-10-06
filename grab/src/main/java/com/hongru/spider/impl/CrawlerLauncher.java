@@ -1,6 +1,7 @@
 package com.hongru.spider.impl;
 
 import com.hongru.common.lucene.conf.ConfigManager;
+import com.hongru.config.AppConfig;
 import com.hongru.spider.LeoCrawler;
 import com.hongru.spider.SpiderLauncher;
 import edu.uci.ics.crawler4j.crawler.CrawlConfig;
@@ -9,28 +10,12 @@ import edu.uci.ics.crawler4j.fetcher.PageFetcher;
 import edu.uci.ics.crawler4j.robotstxt.RobotstxtConfig;
 import edu.uci.ics.crawler4j.robotstxt.RobotstxtServer;
 
+import static com.hongru.config.AppConfig.maxDepthOfCrawling;
+
 /**
  * Created by chenhongyu on 16/9/28.
  */
 public class CrawlerLauncher implements SpiderLauncher {
-
-    //数据保存目录
-    private static final String crawlStorageFolder = "./data/craw/root";
-
-    //爬虫数量
-    private static final int numberOfCrawlers = 10;
-    /**
-     * A -> B -> C -> D
-     Since, "A" is a seed page, it will have a depth of 0.
-     "B" will have depth of 1 and so on.
-     You can set a limit on the depth of pages that crawler4j crawls.
-     For example, if you set this limit to 2,
-     it won't crawl page "D". To set the maximum depth you can use:
-     */
-    //抓取深度
-    private static final int maxDepthOfCrawling = 9;
-    //延迟毫秒数 Politeness delay in milliseconds (delay between sending two requests to the same host).默认200毫秒.
-    private static final int politenessDelay = 200;
 
     //模拟User-Agent
     private static final String userAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36";
@@ -45,9 +30,9 @@ public class CrawlerLauncher implements SpiderLauncher {
         config.setResumableCrawling(true);  //可恢复
         config.setUserAgentString(userAgent);
 
-        config.setCrawlStorageFolder(crawlStorageFolder);
+        config.setCrawlStorageFolder(AppConfig.crawlStorageFolder);
         config.setMaxDepthOfCrawling(maxDepthOfCrawling);
-        config.setPolitenessDelay(politenessDelay);
+        config.setPolitenessDelay(AppConfig.politenessDelay);
         /*
          * Instantiate the controller for this crawl.
          */
@@ -66,15 +51,17 @@ public class CrawlerLauncher implements SpiderLauncher {
          * URLs that are fetched and then the crawler starts following links
          * which are found in these pages
          */
-        controller.addSeed("http://www.163.com/");
-        controller.addSeed("http://www.csdn.net/");
-        controller.addSeed("http://hongru.com/");
+
+        for (String url :
+                AppConfig.seeds) {
+            controller.addSeed(url);
+        }
 
         /*
          * Start the crawl. This is a blocking operation, meaning that your code
          * will reach the line after this only when crawling is finished.
          */
-        controller.startNonBlocking(LeoCrawler.class, numberOfCrawlers);
+        controller.startNonBlocking(LeoCrawler.class, AppConfig.numberOfCrawlers);
     }
 
     @Override

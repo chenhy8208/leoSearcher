@@ -32,18 +32,26 @@
     <log4j-web.version>2.4.1</log4j-web.version>
     <commons-lang3.version>3.4</commons-lang3.version>
     <junit.version>3.8.1</junit.version>
-
+    <IKAnalyzer.version>5.0</IKAnalyzer.version>
 
   </properties>
 
   <dependencies>
+
+    <!--中文分词器-->
+    <dependency>
+      <groupId>org.wltea.analyzer</groupId>
+      <artifactId>IKAnalyzer</artifactId>
+      <version>${IKAnalyzer.version}</version>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/src/main/lib/IKAnalyzer-5.0.jar</systemPath>
+    </dependency>
 
     <dependency>
       <groupId>edu.uci.ics</groupId>
       <artifactId>crawler4j</artifactId>
       <version>${crawler4j.version}</version>
     </dependency>
-
 
     <!-- https://mvnrepository.com/artifact/org.apache.lucene/lucene-core -->
     <dependency>
@@ -124,6 +132,12 @@
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

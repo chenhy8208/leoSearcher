@@ -1,16 +1,15 @@
 package com.hongru.common.lucene.conf;
 
-import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
+import com.hongru.config.AppConfig;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
+import org.wltea.analyzer.lucene.IKAnalyzer;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.URI;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /**
@@ -19,15 +18,15 @@ import java.nio.file.Paths;
 public class ConfigManager {
 
     private static IndexWriter indexWriter;
-    private static final Version currentVersion = Version.LUCENE_6_2_1;
-    private static final String storagePath = "./indexDir/";
+    private static final Version currentVersion = AppConfig.currentLuceneVersion;
     private static Directory directory;
-    private static Analyzer analyzer;
+    private static IKAnalyzer analyzer;
 
     static {
         try {
-            directory = FSDirectory.open(Paths.get(new URI(storagePath)));
-            analyzer = new StandardAnalyzer(); //分词器
+            Path dirctoryPath = Paths.get(AppConfig.storagePath);
+            directory = FSDirectory.open(dirctoryPath);
+            analyzer = new IKAnalyzer(true); //是否开启智能分词
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -37,7 +36,7 @@ public class ConfigManager {
         return directory;
     }
 
-    public static Analyzer getAnalyzer() {
+    public static IKAnalyzer getAnalyzer() {
         return analyzer;
     }
 
@@ -46,9 +45,9 @@ public class ConfigManager {
 
         synchronized (ConfigManager.class) {
             try {
-                IndexWriterConfig config = new IndexWriterConfig(getAnalyzer());
                 if (indexWriter == null) {
                     synchronized (ConfigManager.class) {
+                        IndexWriterConfig config = new IndexWriterConfig(analyzer);
                         indexWriter = new IndexWriter(getDirectory(), config);
                     }
                 }

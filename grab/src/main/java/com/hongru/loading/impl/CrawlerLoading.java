@@ -42,9 +42,12 @@ public class CrawlerLoading implements Loading{
             webHtml.setHtmlLength(parseData.getHtml().length());
             webHtml.setMetaDescription(parseData.getMetaTags().get("description"));
             webHtml.setMetaKeyword(parseData.getMetaTags().get("keywords"));
-            webHtml.setMetaTitle(parseData.getMetaTags().get("title"));
+            webHtml.setMetaTitle(parseData.getMetaTags().get("dc:title"));
             webHtml.setNumberOfOutgoingLinks(parseData.getOutgoingUrls().size());
             webHtml.setStatusCode(statusCode);
+            webHtml.setContentType(parseData.getMetaTags().get("content-type"));
+            webHtml.setEncoding(parseData.getMetaTags().get("content-encoding"));
+            webHtml.setAuthor(parseData.getMetaTags().get("author"));
         } catch (Exception e) {
             logger.error("web url = " + url + " | " + e.getMessage());
             return null;

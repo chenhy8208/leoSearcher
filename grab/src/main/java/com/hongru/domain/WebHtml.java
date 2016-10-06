@@ -9,12 +9,40 @@ public class WebHtml {
     private String url;
     private Date crawlTime;
     private Date pageUpdateTime;  //页面更新的时间
-    private String MetaTitle;
-    private String MetaKeyword;
-    private String MetaDescription;
+    private String metaTitle;
+    private String metaKeyword;
+    private String metaDescription;
     private String html;
     private String text;  //有用的片段
+    private String encoding;  //编码
+    private String contentType;  //内容类型
+    private String author;  //作者
     private int statusCode;  //网页返回的状态码
+
+    public String getEncoding() {
+        return encoding;
+    }
+
+    public void setEncoding(String encoding) {
+        this.encoding = encoding;
+    }
+
+    public String getContentType() {
+        return contentType;
+    }
+
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
     private int htmlLength;  //网页字符长度
     private int numberOfOutgoingLinks;  //外链数量
 
@@ -43,27 +71,27 @@ public class WebHtml {
     }
 
     public String getMetaTitle() {
-        return MetaTitle;
+        return metaTitle;
     }
 
     public void setMetaTitle(String metaTitle) {
-        MetaTitle = metaTitle;
+        this.metaTitle = metaTitle;
     }
 
     public String getMetaKeyword() {
-        return MetaKeyword;
+        return metaKeyword;
     }
 
     public void setMetaKeyword(String metaKeyword) {
-        MetaKeyword = metaKeyword;
+        this.metaKeyword = metaKeyword;
     }
 
     public String getMetaDescription() {
-        return MetaDescription;
+        return metaDescription;
     }
 
     public void setMetaDescription(String metaDescription) {
-        MetaDescription = metaDescription;
+        this.metaDescription = metaDescription;
     }
 
     public String getHtml() {
