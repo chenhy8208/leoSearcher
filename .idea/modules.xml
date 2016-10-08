@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/grab/grab.iml" filepath="$PROJECT_DIR$/grab/grab.iml" />
+      <module fileurl="file://$PROJECT_DIR$/web-searcher/web-searcher.iml" filepath="$PROJECT_DIR$/web-searcher/web-searcher.iml" />
     </modules>
   </component>
 </project>

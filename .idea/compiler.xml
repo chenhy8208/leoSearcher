@@ -23,10 +23,12 @@
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
         <module name="grab" />
+        <module name="web-searcher" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="grab" target="1.8" />
+      <module name="web-searcher" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>

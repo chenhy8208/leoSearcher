@@ -35,11 +35,9 @@ public class AppConfig {
 
     //网站初始种子
     public static final String[] seeds = new String[]{
-            "http://www.beijing.gov.cn/",
-            "http://www.shandong.gov.cn/col/col520/",
-            "http://www.bidchance.com/index.html",
-            "http://www.infobidding.com/infobidding/index.html",
-            "http://www.chinabidding.com.cn/",
-            "http://www.qianlima.com/"
+            "http://www.ccgp-shandong.gov.cn/sdgp2014/site/channelall.jsp?colcode=0301",
+            "http://www.bjcz.gov.cn/zfcg/index.htm",
+            "http://www.zbs365.com/zt-hnscg/",
+            "http://bid.aited.cn/bid/index.html"
     };
 }
