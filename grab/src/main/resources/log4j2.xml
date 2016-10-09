@@ -3,6 +3,7 @@
 <Configuration>
 	<properties>
 		<property name="LOG_HOME">/Volumes/Macintosh HD/Users/hongyu/workspace</property>
+		<!--<property name="LOG_HOME">E:/data_chen2016/</property>-->
 		<property name="ERROR_LOG_FILE_NAME">error</property>
 	</properties>
 

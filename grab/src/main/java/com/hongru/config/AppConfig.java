@@ -9,6 +9,7 @@ public class AppConfig {
 
     //lucene数据保存路径
     public static final String storagePath = "/Volumes/Macintosh HD/Users/hongyu/workspace/indexDir/";
+    //public static final String storagePath = "E:/data_chen2016/indexDir/";
 
     //lucene版本
     public static final Version currentLuceneVersion = Version.LUCENE_6_2_1;
@@ -17,7 +18,7 @@ public class AppConfig {
     public static final String crawlStorageFolder = "./data/craw/root";
 
     //爬虫数量
-    public static final int numberOfCrawlers = 10;
+    public static final int numberOfCrawlers = 20;
 
     /**
      * A -> B -> C -> D
