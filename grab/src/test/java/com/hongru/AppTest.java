@@ -36,52 +36,52 @@ public class AppTest
     }
     
     public void testGetWebSiteData() {
-
-        String keyword = "网站";
-        DirectoryReader directoryReader = null;
-        IndexSearcher indexSearcher = null;
-        try {
-            // 2、创建IndexReader
-            directoryReader = DirectoryReader.open(ConfigManager.getDirectory());
-            indexSearcher = new IndexSearcher(directoryReader);
-
-            Analyzer analyzer = ConfigManager.getAnalyzer();
-            //QueryParser queryParser = new MultiFieldQueryParser(new String[]{"metaTitle","html"}, analyzer);
-            QueryParser queryParser = new QueryParser("html", analyzer);
-            Query query = queryParser.parse(keyword);
-
-            TopDocs topDocs = indexSearcher.search(query, 10);
-            System.out.println("查找到的文档总共有："+topDocs.totalHits);
-            ScoreDoc[] scoreDocs = topDocs.scoreDocs;
-
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-            for (ScoreDoc scoreDoc: scoreDocs
-                    ) {
-
-                int docId = scoreDoc.doc;
-                Document doc = indexSearcher.doc(docId);
-
-                WebHtml webHtml = HTMLDocumentUtils.documentToHtml(doc);
-
-                System.out.println("url = " + webHtml.getUrl());
-                System.out.println("crawlTime = " + sdf.format(webHtml.getCrawlTime()));
-                System.out.println("pageUpdateTime = " + sdf.format(webHtml.getPageUpdateTime()));
-                System.out.println("metaTitle = " + webHtml.getMetaTitle());
-                System.out.println("metaKeyword = " + webHtml.getMetaKeyword());
-                System.out.println("metaDescription = " + webHtml.getMetaDescription());
-                //System.out.println("html = " + webHtml.getHtml());
-                //System.out.println("text = " + webHtml.getText());
-                System.out.println("statusCode = " + webHtml.getStatusCode());
-                System.out.println("htmlLength = " + webHtml.getHtmlLength());
-                System.out.println("numberOfOutgoingLinks = " + webHtml.getNumberOfOutgoingLinks());
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+//
+//        String keyword = "网站";
+//        DirectoryReader directoryReader = null;
+//        IndexSearcher indexSearcher = null;
+//        try {
+//            // 2、创建IndexReader
+//            directoryReader = DirectoryReader.open(ConfigManager.getDirectory());
+//            indexSearcher = new IndexSearcher(directoryReader);
+//
+//            Analyzer analyzer = ConfigManager.getAnalyzer();
+//            //QueryParser queryParser = new MultiFieldQueryParser(new String[]{"metaTitle","html"}, analyzer);
+//            QueryParser queryParser = new QueryParser("html", analyzer);
+//            Query query = queryParser.parse(keyword);
+//
+//            TopDocs topDocs = indexSearcher.search(query, 10);
+//            System.out.println("查找到的文档总共有："+topDocs.totalHits);
+//            ScoreDoc[] scoreDocs = topDocs.scoreDocs;
+//
+//            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//
+//            for (ScoreDoc scoreDoc: scoreDocs
+//                    ) {
+//
+//                int docId = scoreDoc.doc;
+//                Document doc = indexSearcher.doc(docId);
+//
+//                WebHtml webHtml = HTMLDocumentUtils.documentToHtml(doc);
+//
+//                System.out.println("url = " + webHtml.getUrl());
+//                System.out.println("crawlTime = " + sdf.format(webHtml.getCrawlTime()));
+//                System.out.println("pageUpdateTime = " + sdf.format(webHtml.getPageUpdateTime()));
+//                System.out.println("metaTitle = " + webHtml.getMetaTitle());
+//                System.out.println("metaKeyword = " + webHtml.getMetaKeyword());
+//                System.out.println("metaDescription = " + webHtml.getMetaDescription());
+//                //System.out.println("html = " + webHtml.getHtml());
+//                //System.out.println("text = " + webHtml.getText());
+//                System.out.println("statusCode = " + webHtml.getStatusCode());
+//                System.out.println("htmlLength = " + webHtml.getHtmlLength());
+//                System.out.println("numberOfOutgoingLinks = " + webHtml.getNumberOfOutgoingLinks());
+//            }
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
 
 
         System.out.println("over = " + true);

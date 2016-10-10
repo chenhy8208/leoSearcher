@@ -204,9 +204,10 @@
         <artifactId>maven-assembly-plugin</artifactId>
         <configuration>
           <appendAssemblyId>false</appendAssemblyId>
-          <descriptorRefs>
-            <descriptorRef>jar-with-dependencies</descriptorRef>
-          </descriptorRefs>
+          <!-- 描述文件路径 -->
+          <descriptors>
+            <descriptor>src/main/assembly/assembly.xml</descriptor>
+          </descriptors>
           <archive>
             <manifest>
               <mainClass>com.hongru.App</mainClass>

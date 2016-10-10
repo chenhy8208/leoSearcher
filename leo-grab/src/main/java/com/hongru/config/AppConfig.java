@@ -9,7 +9,7 @@ public class AppConfig {
 
     //lucene数据保存路径
     //public static final String storagePath = "/Volumes/Macintosh HD/Users/hongyu/workspace/indexDir/";
-    public static final String storagePath = "F:\\chen\\indexDir\\";
+    public static final String storagePath = "F:/chen/indexDir/";
 
     //lucene版本
     public static final Version currentLuceneVersion = Version.LUCENE_6_2_1;

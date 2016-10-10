@@ -1,6 +1,8 @@
 package com.hongru.common.lucene.conf;
 
 import com.hongru.config.AppConfig;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.Directory;
@@ -16,7 +18,7 @@ import java.nio.file.Paths;
  * Created by chenhongyu on 16/9/28.
  */
 public class ConfigManager {
-
+    private static final Logger logger = LogManager.getLogger(ConfigManager.class);
     private static IndexWriter indexWriter;
     private static final Version currentVersion = AppConfig.currentLuceneVersion;
     private static Directory directory;
@@ -27,6 +29,8 @@ public class ConfigManager {
             Path dirctoryPath = Paths.get(AppConfig.storagePath);
             directory = FSDirectory.open(dirctoryPath);
             analyzer = new IKAnalyzer(true); //是否开启智能分词
+            logger.info("******* init directory = " + directory);
+            logger.info("******* init directory path = " + dirctoryPath.toAbsolutePath());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
