@@ -21,8 +21,10 @@ public class IndexDao {
         IndexWriter indexWriter = ConfigManager.getIndexWriter();
         try {
             indexWriter.addDocument(doc); // 操作
+            indexWriter.commit();
         } catch (Exception e) {
             logger.error(e.getMessage());
+            ConfigManager.closeIndexWriter();
         }
     }
 
@@ -33,8 +35,10 @@ public class IndexDao {
             Term term = new Term("url", webHtml.getUrl());
             Document doc = HTMLDocumentUtils.htmlToDocument(webHtml);
             indexWriter.updateDocument(term, doc); // 更新就是先删除再添加
+            indexWriter.commit();
         } catch (Exception e) {
             logger.error(e.getMessage());
+            ConfigManager.closeIndexWriter();
         }
     }
 
@@ -43,8 +47,10 @@ public class IndexDao {
         try {
             Term term = new Term("url", url);
             indexWriter.deleteDocuments(term); // 删除含有指定Term的Document数据
+            indexWriter.commit();
         } catch (Exception e) {
             logger.error(e.getMessage());
+            ConfigManager.closeIndexWriter();
         }
     }
 

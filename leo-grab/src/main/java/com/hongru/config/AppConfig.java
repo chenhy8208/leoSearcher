@@ -8,7 +8,7 @@ import org.apache.lucene.util.Version;
 public class AppConfig {
 
     //lucene数据保存路径
-    //public static final String storagePath = "/Volumes/Macintosh HD/Users/hongyu/workspace/indexDir/";
+//    public static final String storagePath = "/Volumes/Macintosh HD/Users/hongyu/workspace/indexDir/";
     public static final String storagePath = "F:/chen/indexDir/";
 
     //lucene版本
