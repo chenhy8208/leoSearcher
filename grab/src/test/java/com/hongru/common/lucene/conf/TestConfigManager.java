@@ -14,15 +14,15 @@ import java.io.StringReader;
 public class TestConfigManager {
 
     //TODO IKAnalyer的分词效果没有出来
-    @Test
-    public void testGetAnalyzer() {
-        String text="北京新鸿儒基于java语言开发的轻量级的中文分词工具包";
-        try {
-            showAnalyzerResult(ConfigManager.getAnalyzer(), text);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    @Test
+//    public void testGetAnalyzer() {
+//        String text="北京新鸿儒基于java语言开发的轻量级的中文分词工具包";
+//        try {
+//            showAnalyzerResult(ConfigManager.getAnalyzer(), text);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     public void showAnalyzerResult(IKAnalyzer analyzer, String str) throws Exception {
         long start = System.currentTimeMillis();

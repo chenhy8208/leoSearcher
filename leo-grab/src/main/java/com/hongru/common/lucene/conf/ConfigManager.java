@@ -1,5 +1,6 @@
 package com.hongru.common.lucene.conf;
 
+import com.hongru.App;
 import com.hongru.config.AppConfig;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -56,12 +57,8 @@ public class ConfigManager {
                         IndexWriterConfig config = new IndexWriterConfig(analyzer);
 
                         LogMergePolicy mergePolicy = new LogByteSizeMergePolicy();
-                        //设置segment添加文档(Document)时的合并频率          //值较小,建立索引的速度就较慢          //值较大,建立索引的速度就较快,>10适合批量建立索引
-                        mergePolicy.setMergeFactor(50);
-                        //设置segment最大合并文档(Document)数
-                        //值较小有利于追加索引的速度
-                        //值较大,适合批量建立索引和更快的搜索
-                        mergePolicy.setMaxMergeDocs(5000);
+                        mergePolicy.setMergeFactor(AppConfig.mergePolicy_mergeFactor);
+                        mergePolicy.setMaxMergeDocs(AppConfig.mergePolicy_maxMergeDocs);
 
                         indexWriter = new IndexWriter(getDirectory(), config);
                     }
