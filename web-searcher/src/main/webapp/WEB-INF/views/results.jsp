@@ -54,11 +54,10 @@
                       <div class="media">
 
                         <div class="media-body">
-                          <a href="${result.webHtml.url}" target="_blank">
-                            <h4 class="media-heading">${result.webHtml.metaTitle}&nbsp;<font class="relativeFont">相关度：${result.relativityStr}</font></h4>
+                            <h4 class="media-heading"><a href="${result.webHtml.url}" target="_blank">${result.webHtml.metaTitle}</a></h4>
+                              <div class="relativeFont"><a href="${result.webHtml.url}" target="_blank">${result.webHtml.url}</a></div>
                               ${result.webHtml.metaDescription}
-                            <div class="resultTail">发布时间：<fmt:formatDate value="${result.webHtml.pageUpdateTime}" pattern="yyyy-MM-dd HH:mm" /></div>
-                          </a>
+                            <div class="resultTail">时间：<fmt:formatDate value="${result.webHtml.pageUpdateTime}" pattern="yyyy-MM-dd HH:mm" /></div>
                         </div>
                       </div>
                     </div>

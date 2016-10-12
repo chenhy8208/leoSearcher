@@ -7,12 +7,14 @@ import com.hongru.common.util.StrUtils;
 import com.hongru.config.AppConfig;
 import com.hongru.domain.FindResult;
 import com.hongru.domain.WebHtml;
+import com.hongru.search.SearchQuery;
+import com.hongru.search.impl.DefaultMultiFieldBooleanQuery;
+import com.hongru.search.impl.DefaultTermBooleanQuery;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.document.Document;
-import org.apache.lucene.index.Term;
 import org.apache.lucene.search.*;
 import org.apache.lucene.search.highlight.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,7 +80,8 @@ public class PageController {
         try {
             // 创建IndexReader
             indexSearcher = configManager.getIndexSearcher();
-            query = createQuery(search_query);
+            SearchQuery searchQuery = new DefaultMultiFieldBooleanQuery();
+            query = searchQuery.createQuery(configManager.getAnalyzer(), search_query);
 
             //分页取纪录
             topDocs = indexSearcher.search(query, pageVo.getOffset() + pageVo.getRows());
@@ -120,55 +123,18 @@ public class PageController {
     }
 
     /**
-     * 构造查询条件
-     * @param search_query
-     * @return
-     */
-    private Query createQuery(String search_query) {
-        //------------------------搜索字段--------------------------------
-        Map<String,  BooleanClause.Occur> searchFields = new HashMap<>();
-        searchFields.put("metaTitle", BooleanClause.Occur.MUST);
-        searchFields.put("metaKeyword", BooleanClause.Occur.SHOULD);
-        searchFields.put("metaDescription", BooleanClause.Occur.SHOULD);
-
-        //条件构造
-        BooleanQuery.Builder booleanQueryBuilder = new BooleanQuery.Builder();
-        String[] keywords = search_query.split("\\s");
-        for (String keyword: keywords
-                ) {
-
-            //多字段搜索
-            Set<Map.Entry<String,  BooleanClause.Occur>> entrySet = searchFields.entrySet();
-            for (Map.Entry<String,  BooleanClause.Occur> entry : entrySet) {
-                String key = entry.getKey();
-
-                Term term = new Term(key, keyword);
-                TermQuery tQuery = new TermQuery(term);
-
-                BooleanClause clause = new BooleanClause(tQuery, searchFields.get(key));
-                booleanQueryBuilder.add(clause);
-            }
-
-        }
-
-        BooleanQuery query = booleanQueryBuilder.build();
-
-        return query;
-    }
-
-    /**
      * 标记相关度
      * @param scoreDoc
      * @param findResult
      */
     private void markRelativity(ScoreDoc scoreDoc, FindResult<WebHtml> findResult) {
-        Float fpercent = scoreDoc.score*10;
+        Float fpercent = scoreDoc.score;
         //转百分数
-        NumberFormat percentFormat = NumberFormat.getPercentInstance();
-        percentFormat.setMaximumFractionDigits(2); //最大小数位数
+//        NumberFormat percentFormat = NumberFormat.getPercentInstance();
+//        percentFormat.setMaximumFractionDigits(2); //最大小数位数
 
         findResult.setRelativity(fpercent);
-        findResult.setRelativityStr(percentFormat.format(fpercent));
+//        findResult.setRelativityStr(percentFormat.format(fpercent));
     }
 
     /**
