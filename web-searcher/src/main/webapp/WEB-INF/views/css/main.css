@@ -19,6 +19,8 @@ html, body {height: 100%;}
 label[for=search_query] {font-size: 4em;}
 /*#search_query {padding: 20px 20px;}*/
 
+.siteTitle {font-size: 4em;}
+
 .advanced-search-panel {display: none;}
 .media-heading{text-decoration:underline;}
 .clearfix {clear: both;}

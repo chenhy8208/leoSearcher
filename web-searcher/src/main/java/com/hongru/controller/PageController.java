@@ -25,10 +25,7 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by chenhongyu on 2016/10/8.
@@ -128,16 +125,32 @@ public class PageController {
      * @return
      */
     private Query createQuery(String search_query) {
+        //------------------------搜索字段--------------------------------
+        Map<String,  BooleanClause.Occur> searchFields = new HashMap<>();
+        searchFields.put("metaTitle", BooleanClause.Occur.MUST);
+        searchFields.put("metaKeyword", BooleanClause.Occur.SHOULD);
+        searchFields.put("metaDescription", BooleanClause.Occur.SHOULD);
+
         //条件构造
         BooleanQuery.Builder booleanQueryBuilder = new BooleanQuery.Builder();
         String[] keywords = search_query.split("\\s");
         for (String keyword: keywords
                 ) {
-            Term term = new Term("html", keyword);
-            TermQuery tQuery = new TermQuery(term);
-            BooleanClause clause = new BooleanClause(tQuery, BooleanClause.Occur.MUST);
-            booleanQueryBuilder.add(clause);
+
+            //多字段搜索
+            Set<Map.Entry<String,  BooleanClause.Occur>> entrySet = searchFields.entrySet();
+            for (Map.Entry<String,  BooleanClause.Occur> entry : entrySet) {
+                String key = entry.getKey();
+
+                Term term = new Term(key, keyword);
+                TermQuery tQuery = new TermQuery(term);
+
+                BooleanClause clause = new BooleanClause(tQuery, searchFields.get(key));
+                booleanQueryBuilder.add(clause);
+            }
+
         }
+
         BooleanQuery query = booleanQueryBuilder.build();
 
         return query;
