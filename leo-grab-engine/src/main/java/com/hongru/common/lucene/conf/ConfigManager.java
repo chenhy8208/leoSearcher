@@ -1,6 +1,5 @@
 package com.hongru.common.lucene.conf;
 
-import com.hongru.App;
 import com.hongru.config.AppConfig;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

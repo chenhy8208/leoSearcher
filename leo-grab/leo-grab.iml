@@ -20,10 +20,11 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="module" module-name="leo-grab-engine" />
     <orderEntry type="module-library">
       <library name="Maven: org.wltea.analyzer:IKAnalyzer:5.0">
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/src/main/lib/IKAnalyzer-5.0.jar!/" />
+          <root url="jar://$MODULE_DIR$/../grab/lib/IKAnalyzer-5.0.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

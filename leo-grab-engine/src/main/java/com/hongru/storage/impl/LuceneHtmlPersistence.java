@@ -3,7 +3,6 @@ package com.hongru.storage.impl;
 import com.hongru.common.lucene.IndexDao;
 import com.hongru.domain.WebHtml;
 import com.hongru.filter.GrabFilter;
-import com.hongru.filter.impl.LeoFilter;
 import com.hongru.storage.HtmlPersistence;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,8 +19,7 @@ public class LuceneHtmlPersistence implements HtmlPersistence{
             return;
         }
 
-        GrabFilter grabFilter = new LeoFilter();
-        if (!grabFilter.filter(webHtml)) return; //没有通过过滤不保存
+        if (!this.grabFilter.filter(webHtml)) return; //没有通过过滤不保存
 
         //保存
         IndexDao indexDao = new IndexDao();
@@ -30,4 +28,11 @@ public class LuceneHtmlPersistence implements HtmlPersistence{
 
     private static final Logger logger = LogManager.getLogger(LuceneHtmlPersistence.class);
 
+    private LuceneHtmlPersistence(){}
+
+    public LuceneHtmlPersistence(GrabFilter grabFilter){
+        this.grabFilter = grabFilter;
+    }
+
+    private GrabFilter grabFilter;
 }

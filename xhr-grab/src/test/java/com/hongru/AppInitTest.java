@@ -1,33 +1,14 @@
 package com.hongru;
 
-import com.hongru.common.lucene.HTMLDocumentUtils;
-import com.hongru.common.lucene.LuceneUtils;
-import com.hongru.common.lucene.conf.ConfigManager;
-import com.hongru.config.AppConfig;
-import com.hongru.domain.WebHtml;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.document.Document;
-import org.apache.lucene.index.DirectoryReader;
-import org.apache.lucene.queryparser.classic.MultiFieldQueryParser;
-import org.apache.lucene.queryparser.classic.ParseException;
-import org.apache.lucene.queryparser.classic.QueryParser;
-import org.apache.lucene.search.*;
-import org.apache.lucene.search.highlight.InvalidTokenOffsetsException;
-import org.apache.lucene.store.Directory;
-import org.apache.lucene.store.FSDirectory;
-
-import java.io.IOException;
-import java.nio.file.FileSystems;
-import java.text.SimpleDateFormat;
 
 /**
- * Unit test for simple App.
+ * Unit test for simple AppInit.
  */
-public class AppTest 
+public class AppInitTest
     extends TestCase
 {
     
@@ -92,7 +73,7 @@ public class AppTest
      *
      * @param testName name of the test case
      */
-    public AppTest( String testName )
+    public AppInitTest(String testName )
     {
         super( testName );
     }
@@ -102,7 +83,7 @@ public class AppTest
      */
     public static Test suite()
     {
-        return new TestSuite( AppTest.class );
+        return new TestSuite( AppInitTest.class );
     }
 
     /**

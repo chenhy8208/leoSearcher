@@ -11,6 +11,7 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class LeoFilter implements GrabFilter {
 
+    //判断是否要收录
     @Override
     public boolean filter(WebHtml webHtml) {
         return true;

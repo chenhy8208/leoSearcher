@@ -2,10 +2,10 @@ package com.hongru.spider.impl;
 
 import com.hongru.common.lucene.conf.ConfigManager;
 import com.hongru.config.AppConfig;
-import com.hongru.spider.LeoCrawler;
 import com.hongru.spider.SpiderLauncher;
 import edu.uci.ics.crawler4j.crawler.CrawlConfig;
 import edu.uci.ics.crawler4j.crawler.CrawlController;
+import edu.uci.ics.crawler4j.crawler.WebCrawler;
 import edu.uci.ics.crawler4j.fetcher.PageFetcher;
 import edu.uci.ics.crawler4j.robotstxt.RobotstxtConfig;
 import edu.uci.ics.crawler4j.robotstxt.RobotstxtServer;
@@ -16,12 +16,6 @@ import static com.hongru.config.AppConfig.maxDepthOfCrawling;
  * Created by chenhongyu on 16/9/28.
  */
 public class CrawlerLauncher implements SpiderLauncher {
-
-    //模拟User-Agent
-    private static final String userAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36";
-
-
-    private CrawlController controller;
 
     @Override
     public void spiderLaunch() {
@@ -61,7 +55,7 @@ public class CrawlerLauncher implements SpiderLauncher {
          * Start the crawl. This is a blocking operation, meaning that your code
          * will reach the line after this only when crawling is finished.
          */
-        controller.startNonBlocking(LeoCrawler.class, AppConfig.numberOfCrawlers);
+        controller.startNonBlocking(this.crawlerClass, AppConfig.numberOfCrawlers);
     }
 
     @Override
@@ -70,4 +64,17 @@ public class CrawlerLauncher implements SpiderLauncher {
         controller.waitUntilFinish();
         ConfigManager.closeIndexWriter();
     }
+
+    public CrawlerLauncher(Class<? extends WebCrawler> crawlerClass) {
+        this.crawlerClass = crawlerClass;
+    }
+
+    private CrawlerLauncher(){}
+
+    //模拟User-Agent
+    private static final String userAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36";
+
+    private CrawlController controller;
+
+    private Class<? extends WebCrawler> crawlerClass;
 }

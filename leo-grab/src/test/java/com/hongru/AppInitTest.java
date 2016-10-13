@@ -7,9 +7,9 @@ import junit.framework.TestSuite;
 import java.text.NumberFormat;
 
 /**
- * Unit test for simple App.
+ * Unit test for simple AppInit.
  */
-public class AppTest 
+public class AppInitTest
     extends TestCase
 {
 
@@ -27,7 +27,7 @@ public class AppTest
      *
      * @param testName name of the test case
      */
-    public AppTest( String testName )
+    public AppInitTest(String testName )
     {
         super( testName );
     }
@@ -37,7 +37,7 @@ public class AppTest
      */
     public static Test suite()
     {
-        return new TestSuite( AppTest.class );
+        return new TestSuite( AppInitTest.class );
     }
 
     /**

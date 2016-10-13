@@ -2,7 +2,6 @@ package com.hongru.loading.impl;
 
 import com.hongru.domain.WebHtml;
 import com.hongru.loading.Loading;
-import com.hongru.spider.LeoCrawler;
 import edu.uci.ics.crawler4j.parser.HtmlParseData;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;

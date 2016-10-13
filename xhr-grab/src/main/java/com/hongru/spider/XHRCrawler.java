@@ -2,7 +2,7 @@ package com.hongru.spider;
 
 import com.hongru.domain.WebHtml;
 import com.hongru.filter.GrabFilter;
-import com.hongru.filter.impl.LeoFilter;
+import com.hongru.filter.impl.XHRFilter;
 import com.hongru.loading.Loading;
 import com.hongru.loading.impl.CrawlerLoading;
 import com.hongru.storage.HtmlPersistence;
@@ -21,9 +21,9 @@ import java.util.regex.Pattern;
  * Created by chenhongyu on 16/9/28.
  *
  */
-public class LeoCrawler extends WebCrawler {
+public class XHRCrawler extends WebCrawler {
 
-    private static final Logger logger = LogManager.getLogger(LeoCrawler.class);
+    private static final Logger logger = LogManager.getLogger(XHRCrawler.class);
 
     private final static Pattern FILTERS = Pattern.compile(".*(\\.(css|js|bmp|gif|jpe?g|ico"
             + "|png|tiff?|mid|mp2|mp3|mp4"
@@ -54,10 +54,6 @@ public class LeoCrawler extends WebCrawler {
     public void visit(Page page) {
         String url = page.getWebURL().getURL();
 
-        if (!LeoFilter.checkUrlIsHomePage(page)) {
-            return; //不是首页就不入库
-        }
-
         if (page.getParseData() instanceof HtmlParseData) {
             HtmlParseData htmlParseData = (HtmlParseData) page.getParseData();
             String text = htmlParseData.getText();
@@ -69,7 +65,7 @@ public class LeoCrawler extends WebCrawler {
             Loading loading = new CrawlerLoading();
             WebHtml webHtml = loading.loading(url, page.getStatusCode(), htmlParseData);
 
-            GrabFilter grabFilter = new LeoFilter();
+            GrabFilter grabFilter = new XHRFilter();
             //过滤持久化
             HtmlPersistence htmlPersistence = new LuceneHtmlPersistence(grabFilter);
             htmlPersistence.filterAndSave(webHtml);
