@@ -12,7 +12,6 @@ import java.util.Scanner;
  */
 public class AppInit
 {
-
     public static void init() {
         while (!loadConfig()) {
             pathFault = true;

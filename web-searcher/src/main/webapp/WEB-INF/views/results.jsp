@@ -56,8 +56,9 @@
                         <div class="media-body">
                             <h4 class="media-heading"><a href="${result.webHtml.url}" target="_blank">${result.webHtml.metaTitle}</a></h4>
                               <div class="relativeFont"><a href="${result.webHtml.url}" target="_blank">${result.webHtml.url}</a></div>
-                              ${result.webHtml.metaDescription}
-                            <div class="resultTail">时间：<fmt:formatDate value="${result.webHtml.pageUpdateTime}" pattern="yyyy-MM-dd HH:mm" /></div>
+                            <span class="newTimeFactor_before_abs m"><fmt:formatDate value="${result.webHtml.pageUpdateTime}" pattern="yyyy年MM月dd日" />&nbsp;-&nbsp;</span>
+                            ${result.webHtml.metaDescription}
+                            <div class="resultTail">收录时间：<fmt:formatDate value="${result.webHtml.crawlTime}" pattern="yyyy-MM-dd HH:mm" /></div>
                         </div>
                       </div>
                     </div>

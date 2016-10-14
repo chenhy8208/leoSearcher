@@ -97,7 +97,7 @@
           </descriptors>
           <archive>
             <manifest>
-              <mainClass>com.hongru.AppInit</mainClass>
+              <mainClass>com.hongru.App</mainClass>
             </manifest>
           </archive>
         </configuration>

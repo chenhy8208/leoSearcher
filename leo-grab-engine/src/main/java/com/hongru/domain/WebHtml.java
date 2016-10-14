@@ -9,6 +9,7 @@ public class WebHtml {
     private String url;
     private Date crawlTime;
     private Date pageUpdateTime;  //页面更新的时间
+    private Date pageLastModified;  //页面最后修改时间
     private String metaTitle;
     private String metaKeyword;
     private String metaDescription;
@@ -18,6 +19,14 @@ public class WebHtml {
     private String contentType;  //内容类型
     private String author;  //作者
     private int statusCode;  //网页返回的状态码
+
+    public Date getPageLastModified() {
+        return pageLastModified;
+    }
+
+    public void setPageLastModified(Date pageLastModified) {
+        this.pageLastModified = pageLastModified;
+    }
 
     public String getEncoding() {
         return encoding;

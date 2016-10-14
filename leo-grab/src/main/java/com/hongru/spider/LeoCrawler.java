@@ -44,6 +44,8 @@ public class LeoCrawler extends WebCrawler {
     public boolean shouldVisit(Page referringPage, WebURL url) {
         String href = url.getURL().toLowerCase();
         return !FILTERS.matcher(href).matches();
+//        return !FILTERS.matcher(href).matches() &&
+//                (href.equalsIgnoreCase("https://www.hao123.com") || href.equalsIgnoreCase("http://hongru.com"));
     }
 
     /**
@@ -59,15 +61,11 @@ public class LeoCrawler extends WebCrawler {
         }
 
         if (page.getParseData() instanceof HtmlParseData) {
-            HtmlParseData htmlParseData = (HtmlParseData) page.getParseData();
-            String text = htmlParseData.getText();
-            String html = htmlParseData.getHtml();
-            Set<WebURL> links = htmlParseData.getOutgoingUrls();
             logger.info("visit url:" + url);
 
             //数据装入
             Loading loading = new CrawlerLoading();
-            WebHtml webHtml = loading.loading(url, page.getStatusCode(), htmlParseData);
+            WebHtml webHtml = loading.loading(url, page.getStatusCode(), page.getFetchResponseHeaders(), page.getParseData());
 
             GrabFilter grabFilter = new LeoFilter();
             //过滤持久化

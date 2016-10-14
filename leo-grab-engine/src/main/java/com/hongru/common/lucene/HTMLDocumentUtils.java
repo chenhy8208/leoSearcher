@@ -60,9 +60,8 @@ public class HTMLDocumentUtils {
 		}
 	}
 
-	private static void addNumberField(Document doc, String name, long value, boolean sortable) {
-		Field field = new LongPoint(name, value);
-		doc.add(field);
+	private static void addNumberFieldSortAndStored(Document doc, String name, long value, boolean sortable) {
+		Field field = null;
 		if (sortable) {
 			field = new NumericDocValuesField(name, value);
 			doc.add(field);
@@ -72,16 +71,16 @@ public class HTMLDocumentUtils {
 		doc.add(field);
 	}
 
+	private static void addNumberField(Document doc, String name, long value, boolean sortable) {
+		Field field = new LongPoint(name, value);
+		doc.add(field);
+		addNumberFieldSortAndStored(doc,name,value,sortable);
+	}
+
 	private static void addNumberField(Document doc, String name, int value, boolean sortable) {
 		Field field = new IntPoint(name, value);
 		doc.add(field);
-		if (sortable) {
-			field = new NumericDocValuesField(name, value);
-			doc.add(field);
-		}
-
-		field = new StoredField(name, value);
-		doc.add(field);
+		addNumberFieldSortAndStored(doc,name,value,sortable);
 	}
 
 	public static Document htmlToDocument(WebHtml html) {
@@ -105,6 +104,7 @@ public class HTMLDocumentUtils {
 
 		addNumberField(doc, "crawlTime", html.getCrawlTime().getTime(), true);
 		addNumberField(doc, "pageUpdateTime", html.getPageUpdateTime().getTime(), true);
+		addNumberField(doc, "pageLastModified", html.getPageLastModified().getTime(), true);
 		addNumberField(doc, "statusCode", html.getStatusCode(), false);
 		addNumberField(doc, "htmlLength", html.getHtmlLength(), true);
 		addNumberField(doc, "numberOfOutgoingLinks", html.getNumberOfOutgoingLinks(), true);
@@ -123,6 +123,7 @@ public class HTMLDocumentUtils {
 		WebHtml html = new WebHtml();
 		html.setPageUpdateTime(new Date(NumberUtils.toLong(doc.get("pageUpdateTime"))));
 		html.setCrawlTime(new Date(NumberUtils.toLong(doc.get("crawlTime"))));
+		html.setPageLastModified(new Date(NumberUtils.toLong(doc.get("pageLastModified"))));
 		html.setStatusCode(NumberUtils.toInt(doc.get("statusCode")));
 		html.setHtmlLength(NumberUtils.toInt(doc.get("htmlLength")));
 		html.setNumberOfOutgoingLinks(NumberUtils.toInt(doc.get("numberOfOutgoingLinks")));

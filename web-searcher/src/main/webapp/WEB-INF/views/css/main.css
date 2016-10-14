@@ -54,7 +54,8 @@ font.keyword{color:red; font-weight: bold;}
 .page li.active  a{color:#FF0000;}
 .input-page{ margin:0 !important; width:30px; text-align:center;}
 .input-logdate{ width:120px; margin:0 !important;}
-.input-logdate1{ width:265px; }
-.input-logdate2{width:200px; }
+.input-logdate1{ width:265px;}
+.input-logdate2{width:200px;}
 .text-height{ width:100px; display:inline-block;}
 .radio_padd{ height:32px;}
+.newTimeFactor_before_abs{color: #666;}

@@ -2,8 +2,11 @@ package com.hongru.loading.impl;
 
 import com.hongru.domain.WebHtml;
 import com.hongru.loading.Loading;
+import com.hongru.parse.HTMLDateParse;
 import edu.uci.ics.crawler4j.parser.HtmlParseData;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.Header;
+import org.apache.http.client.utils.DateUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -16,7 +19,7 @@ public class CrawlerLoading implements Loading{
 
 
     @Override
-    public WebHtml loading(String url, int statusCode, Object htmlParseData) {
+    public WebHtml loading(String url, int statusCode, org.apache.http.Header[] headers, Object htmlParseData) {
 
         if (StringUtils.isBlank(url)) {
             logger.warn("Loading html fault,Because url = " + url);
@@ -34,9 +37,7 @@ public class CrawlerLoading implements Loading{
         try {
             webHtml = new WebHtml();
             webHtml.setUrl(url);
-            webHtml.setCrawlTime(new Date());
-            //TODO 这个页面更新时间最好采集页面最近更新的时间
-            webHtml.setPageUpdateTime(new Date());
+            webHtml.setCrawlTime(new Date());  //抓取时间
             webHtml.setHtml(parseData.getHtml());
             webHtml.setHtmlLength(parseData.getHtml().length());
             webHtml.setMetaDescription(parseData.getMetaTags().get("description"));
@@ -47,12 +48,50 @@ public class CrawlerLoading implements Loading{
             webHtml.setContentType(parseData.getMetaTags().get("content-type"));
             webHtml.setEncoding(parseData.getMetaTags().get("content-encoding"));
             webHtml.setAuthor(parseData.getMetaTags().get("author"));
+
+            //页面更新时间,从页面分析出来
+            webHtml.setPageUpdateTime(HTMLDateParse.parseHTMLPublishDate(parseData.getHtml()));
+            loadHeaders(headers, webHtml);
         } catch (Exception e) {
             logger.error("web url = " + url + " | " + e.getMessage());
             return null;
         }
 
         return webHtml;
+    }
+
+    /**
+     * 处理一些headers中才有的数据,比如页面最后更新时间
+     * @param headers
+     * @param webHtml
+     */
+    private void loadHeaders(org.apache.http.Header[] headers, WebHtml webHtml) {
+        webHtml.setPageLastModified(new Date(0));  //页面最后更新时间默认值 1970年
+
+        if(headers == null || headers.length <= 0) {
+            logger.error("CrawlerLoading loadHeaders headers is null");
+            return;
+        };
+
+        for (Header header:
+                headers) {
+            String name = header.getName();
+            if (isLastModified(name)) {
+                String value = header.getValue();
+                Date lastModifiedDate = DateUtils.parseDate(value);
+                //设置为从header中获取的页面最后更新时间
+                webHtml.setPageLastModified(lastModifiedDate);
+                break;
+            }
+        }
+    }
+
+    private boolean isLastModified(String name) {
+        return StringUtils.equalsIgnoreCase(name, "Last-Modified");
+    }
+
+    public CrawlerLoading() {
+
     }
 
     private static final Logger logger = LogManager.getLogger(CrawlerLoading.class);

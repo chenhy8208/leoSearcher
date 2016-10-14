@@ -1,13 +1,8 @@
 package com.hongru;
 
-import com.hongru.config.LoadAppConfigFromFiles;
 import com.hongru.spider.LeoCrawler;
 import com.hongru.spider.SpiderLauncher;
 import com.hongru.spider.impl.CrawlerLauncher;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import java.util.Scanner;
 
 /**
  * 启动类

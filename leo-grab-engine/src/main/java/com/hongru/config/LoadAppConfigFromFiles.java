@@ -15,11 +15,24 @@ import java.nio.file.Paths;
  * Created by chenhongyu on 2016/10/12.
  */
 public class LoadAppConfigFromFiles {
+
+    private static Path configFilePath(String filePath) {
+        Path configFile = Paths.get(filePath);
+        if (!Files.exists(configFile) || Files.isDirectory(configFile)) {
+            configFile = Paths.get(filePath, "/info.properties");
+            if (!Files.exists(configFile) || Files.isDirectory(configFile)) {
+                return null;
+            }
+        }
+
+        return configFile;
+    }
+
     public static boolean load(String filePath) {
         if (StringUtils.isBlank(filePath)) return false;
 
-        Path configFile = Paths.get(filePath);
-        if (!Files.exists(configFile)) return false;
+        Path configFile = configFilePath(filePath);
+        if (configFile == null) return false;
 
         try {
             Configuration configuration = new PropertiesConfiguration(configFile.toFile());
@@ -42,7 +55,12 @@ public class LoadAppConfigFromFiles {
         AppConfig.politenessDelay = configuration.getInt("politenessDelay");
         AppConfig.storagePath = configuration.getString("storagePath");
         AppConfig.seeds = configuration.getStringArray("seeds");
-        if (AppConfig.seeds == null || AppConfig.seeds.length <= 0) return false;
+        if (AppConfig.seeds == null || AppConfig.seeds.length <= 0) {
+            AppConfig.seeds = new String[]{configuration.getString("seeds")};
+            if (AppConfig.seeds == null || AppConfig.seeds.length <= 0){
+                return false;
+            }
+        }
 
         return true;
     }

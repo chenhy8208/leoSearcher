@@ -3,8 +3,15 @@ package com.hongru;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+import org.apache.http.client.utils.DateUtils;
 
+import java.text.DateFormat;
 import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 
 /**
  * Unit test for simple AppInit.
@@ -12,6 +19,34 @@ import java.text.NumberFormat;
 public class AppInitTest
     extends TestCase
 {
+
+    public void testOutDate() {
+        DateFormat gmtSdf = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US);
+        gmtSdf.setTimeZone(TimeZone.getTimeZone("GMT+8"));
+
+        String now = gmtSdf.format(new Date());
+        System.out.println("now = " + now);
+    }
+
+    public void testDateFormat() {
+        String dateString = "Fri, 14 Oct 2016 13:05:40 GMT";
+        DateFormat gmtSdf = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US);
+        gmtSdf.setTimeZone(TimeZone.getTimeZone("GMT"));
+        try {
+            Date now = null;
+            if(!dateString.endsWith("GMT"))
+            {
+                String tail = dateString.substring(dateString.indexOf("GMT"));
+                TimeZone oldTimeZone = gmtSdf.getTimeZone();
+                gmtSdf.setTimeZone(TimeZone.getTimeZone("GMT" + tail));
+            }
+            //now = gmtSdf.parse(dateString);
+            now = DateUtils.parseDate(dateString);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public void testNumberFormat() {
         Float fpercent = 0.22222222f;
