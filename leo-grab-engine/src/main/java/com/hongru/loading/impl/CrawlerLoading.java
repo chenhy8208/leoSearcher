@@ -48,8 +48,6 @@ public class CrawlerLoading implements Loading{
             webHtml.setContentType(parseData.getMetaTags().get("content-type"));
             webHtml.setEncoding(parseData.getMetaTags().get("content-encoding"));
             webHtml.setAuthor(parseData.getMetaTags().get("author"));
-
-            //页面更新时间,从页面分析出来
             webHtml.setPageUpdateTime(HTMLDateParse.parseHTMLPublishDate(parseData.getHtml()));
             loadHeaders(headers, webHtml);
         } catch (Exception e) {
