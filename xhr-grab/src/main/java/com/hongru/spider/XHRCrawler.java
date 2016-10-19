@@ -59,7 +59,7 @@ public class XHRCrawler extends WebCrawler {
 
             //数据装入
             Loading loading = new CrawlerLoading();
-            WebHtml webHtml = loading.loading(url, page.getStatusCode(), page.getFetchResponseHeaders(), page.getParseData());
+            WebHtml webHtml = loading.loading(page);
 
             GrabFilter grabFilter = new XHRFilter();
             //过滤持久化

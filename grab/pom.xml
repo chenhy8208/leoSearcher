@@ -22,11 +22,12 @@
     <properties>
         <!--更换路径后需修改-->
         <IKAnalyzer.path>/Users/chenhongyu/IdeaProjects/leoSearcher/grab/lib/IKAnalyzer-5.0.jar</IKAnalyzer.path>
+        <crawler4j.path>/Users/chenhongyu/IdeaProjects/leoSearcher/grab/lib/crawler4j-4.3-jar-with-dependencies.jar</crawler4j.path>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!--爬虫-->
-        <crawler4j.version>4.2</crawler4j.version>
+        <crawler4j-leo.version>4.3</crawler4j-leo.version>
 
         <!--Lucene-->
         <lucene-core.version>6.2.1</lucene-core.version>
@@ -64,8 +65,10 @@
 
         <dependency>
             <groupId>edu.uci.ics</groupId>
-            <artifactId>crawler4j</artifactId>
-            <version>${crawler4j.version}</version>
+            <artifactId>crawler4j-leo</artifactId>
+            <version>${crawler4j-leo.version}</version>
+            <scope>system</scope>
+            <systemPath>${crawler4j.path}</systemPath>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.apache.lucene/lucene-core -->

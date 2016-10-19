@@ -19,6 +19,15 @@ public class WebHtml {
     private String contentType;  //内容类型
     private String author;  //作者
     private int statusCode;  //网页返回的状态码
+    private int docId; //网页的唯一标示
+
+    public int getDocId() {
+        return docId;
+    }
+
+    public void setDocId(int docId) {
+        this.docId = docId;
+    }
 
     public Date getPageLastModified() {
         return pageLastModified;

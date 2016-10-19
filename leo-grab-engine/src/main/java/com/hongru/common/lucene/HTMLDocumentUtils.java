@@ -108,10 +108,10 @@ public class HTMLDocumentUtils {
 		addNumberField(doc, "statusCode", html.getStatusCode(), false);
 		addNumberField(doc, "htmlLength", html.getHtmlLength(), true);
 		addNumberField(doc, "numberOfOutgoingLinks", html.getNumberOfOutgoingLinks(), true);
+		addNumberField(doc, "docId", html.getDocId(), true);
 
 		return doc;
 	}
-
 
 	public static WebHtml documentToHtml(Document doc) {
 
@@ -121,6 +121,7 @@ public class HTMLDocumentUtils {
 		}
 
 		WebHtml html = new WebHtml();
+		html.setDocId(NumberUtils.toInt(doc.get("docId")));
 		html.setPageUpdateTime(new Date(NumberUtils.toLong(doc.get("pageUpdateTime"))));
 		html.setCrawlTime(new Date(NumberUtils.toLong(doc.get("crawlTime"))));
 		html.setPageLastModified(new Date(NumberUtils.toLong(doc.get("pageLastModified"))));

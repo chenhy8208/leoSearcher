@@ -3,6 +3,7 @@ package com.hongru.loading.impl;
 import com.hongru.domain.WebHtml;
 import com.hongru.loading.Loading;
 import com.hongru.parse.HTMLDateParse;
+import edu.uci.ics.crawler4j.crawler.Page;
 import edu.uci.ics.crawler4j.parser.HtmlParseData;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.Header;
@@ -19,7 +20,11 @@ public class CrawlerLoading implements Loading{
 
 
     @Override
-    public WebHtml loading(String url, int statusCode, org.apache.http.Header[] headers, Object htmlParseData) {
+    public WebHtml loading(Page page) {
+        String url = page.getWebURL().getURL();
+        int statusCode = page.getStatusCode();
+        org.apache.http.Header[] headers = page.getFetchResponseHeaders();
+        Object htmlParseData = page.getParseData();
 
         if (StringUtils.isBlank(url)) {
             logger.warn("Loading html fault,Because url = " + url);
@@ -36,6 +41,7 @@ public class CrawlerLoading implements Loading{
         WebHtml webHtml = null;
         try {
             webHtml = new WebHtml();
+            webHtml.setDocId(page.getWebURL().getDocid()); //唯一标示
             webHtml.setUrl(url);
             webHtml.setCrawlTime(new Date());  //抓取时间
             webHtml.setHtml(parseData.getHtml());

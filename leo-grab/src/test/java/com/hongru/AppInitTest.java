@@ -19,6 +19,12 @@ import java.util.TimeZone;
 public class AppInitTest
     extends TestCase
 {
+    
+    public void testI() {
+        int i = 0;
+        i += ++i;
+        System.out.println("i = " + i);
+    }
 
     public void testOutDate() {
         DateFormat gmtSdf = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US);

@@ -14,7 +14,6 @@ import edu.uci.ics.crawler4j.url.WebURL;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.Set;
 import java.util.regex.Pattern;
 
 /**
@@ -65,7 +64,7 @@ public class LeoCrawler extends WebCrawler {
 
             //数据装入
             Loading loading = new CrawlerLoading();
-            WebHtml webHtml = loading.loading(url, page.getStatusCode(), page.getFetchResponseHeaders(), page.getParseData());
+            WebHtml webHtml = loading.loading(page);
 
             GrabFilter grabFilter = new LeoFilter();
             //过滤持久化
