@@ -43,8 +43,6 @@ public class LeoCrawler extends WebCrawler {
     public boolean shouldVisit(Page referringPage, WebURL url) {
         String href = url.getURL().toLowerCase();
         return !FILTERS.matcher(href).matches();
-//        return !FILTERS.matcher(href).matches() &&
-//                (href.equalsIgnoreCase("https://www.hao123.com") || href.equalsIgnoreCase("http://hongru.com"));
     }
 
     /**
