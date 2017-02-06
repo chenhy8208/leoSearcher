@@ -15,9 +15,10 @@ import edu.uci.ics.crawler4j.robotstxt.RobotstxtServer;
 import static com.hongru.config.AppConfig.maxDepthOfCrawling;
 
 /**
+ * 重派进程
  * Created by chenhongyu on 16/9/28.
  */
-public class CrawlerLauncher implements SpiderLauncher {
+public class ReCrawlerLauncher implements SpiderLauncher {
 
     @Override
     public void spiderLaunch() {
@@ -47,10 +48,14 @@ public class CrawlerLauncher implements SpiderLauncher {
          * URLs that are fetched and then the crawler starts following links
          * which are found in these pages
          */
-        for (String url :
-                AppConfig.seeds) {
-            controller.addSeed(url);
-        }
+//        for (String url :
+//                AppConfig.seeds) {
+//            controller.addSeed(url);
+//        }
+
+        //启动重爬队列任务
+        Recrawl recrawl = new CrawlerRecrawl(controller);
+        recrawl.recrawlFromRedisQueue();
 
         /*
          * Start the crawl. This is a blocking operation, meaning that your code
@@ -66,11 +71,11 @@ public class CrawlerLauncher implements SpiderLauncher {
         ConfigManager.closeIndexWriter();
     }
 
-    public CrawlerLauncher(Class<? extends WebCrawler> crawlerClass) {
+    public ReCrawlerLauncher(Class<? extends WebCrawler> crawlerClass) {
         this.crawlerClass = crawlerClass;
     }
 
-    private CrawlerLauncher(){}
+    private ReCrawlerLauncher(){}
 
     //模拟User-Agent
     private static final String userAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36";

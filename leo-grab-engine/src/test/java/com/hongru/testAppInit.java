@@ -13,4 +13,11 @@ public class testAppInit {
         Date d = new Date(0);
         System.out.println("d = " + d);
     }
+
+    @Test
+    public void testSayGoodNight() {
+        for (int i = 0; i < 100; i++) {
+            System.out.println("Leo Chen, Good night, Happy new year!!!");
+        }
+    }
 }

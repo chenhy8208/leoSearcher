@@ -1,11 +1,12 @@
 package com.hongru.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by chenhongyu on 16/9/28.
  */
-public class WebHtml {
+public class WebHtml implements Serializable {
     private String url;
     private Date crawlTime;
     private Date pageUpdateTime;  //页面更新的时间

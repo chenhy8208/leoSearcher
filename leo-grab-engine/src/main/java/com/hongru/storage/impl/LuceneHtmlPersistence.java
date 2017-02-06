@@ -13,17 +13,19 @@ import org.apache.logging.log4j.Logger;
 public class LuceneHtmlPersistence implements HtmlPersistence{
 
     @Override
-    public void filterAndSave(WebHtml webHtml) {
+    public boolean filterAndSave(WebHtml webHtml) {
         if(webHtml == null) {
             logger.warn(this.getClass().getName() + " fault, webhtml = " + webHtml);
-            return;
+            return false;
         }
 
-        if (!this.grabFilter.filter(webHtml)) return; //没有通过过滤不保存
+        if (!this.grabFilter.filter(webHtml)) return false; //没有通过过滤不保存
 
         //保存
         IndexDao indexDao = new IndexDao();
         indexDao.save(webHtml);
+
+        return true;
     }
 
     private static final Logger logger = LogManager.getLogger(LuceneHtmlPersistence.class);
