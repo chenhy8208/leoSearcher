@@ -5,6 +5,8 @@ import com.hongru.filter.GrabFilter;
 import com.hongru.filter.impl.XHRFilter;
 import com.hongru.loading.Loading;
 import com.hongru.loading.impl.CrawlerLoading;
+import com.hongru.recrawl.Recrawl;
+import com.hongru.recrawl.impl.CrawlerRecrawl;
 import com.hongru.storage.HtmlPersistence;
 import com.hongru.storage.impl.LuceneHtmlPersistence;
 import edu.uci.ics.crawler4j.crawler.Page;
@@ -28,6 +30,7 @@ public class XHRCrawler extends WebCrawler {
     private final static Pattern FILTERS = Pattern.compile(".*(\\.(css|js|bmp|gif|jpe?g|ico"
             + "|png|tiff?|mid|mp2|mp3|mp4"
             + "|wav|avi|mov|mpeg|ram|m4v|pdf"
+            + "|docx?|xlsx?|pptx?"
             + "|rm|smil|wmv|swf|wma|zip|rar|gz))$");
 
     /**
@@ -64,8 +67,15 @@ public class XHRCrawler extends WebCrawler {
             GrabFilter grabFilter = new XHRFilter();
             //过滤持久化
             HtmlPersistence htmlPersistence = new LuceneHtmlPersistence(grabFilter);
-            htmlPersistence.filterAndSave(webHtml);
+            final boolean b = htmlPersistence.filterAndSave(webHtml);
+
+            if (b) {
+                //设置更新重爬
+                Recrawl recrawl = new CrawlerRecrawl(this.getMyController());
+                recrawl.recrawl(webHtml);
+            }
 
         }
+
     }
 }
