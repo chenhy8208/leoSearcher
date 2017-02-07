@@ -45,4 +45,8 @@ public class AppConfig {
 
     //lucene版本
     public static final Version currentLuceneVersion = Version.LUCENE_6_2_1;
+
+    //redis server，多个用,分隔
+    public static String redisServers;
+    public static String redisPassword;
 }

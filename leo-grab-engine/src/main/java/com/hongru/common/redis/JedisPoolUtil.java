@@ -1,5 +1,6 @@
 package com.hongru.common.redis;
 
+import com.hongru.config.AppConfig;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import redis.clients.jedis.JedisShardInfo;
 import redis.clients.jedis.ShardedJedis;
@@ -29,7 +30,7 @@ public class JedisPoolUtil {
     	//在borrow一个jedis实例时，是否提前进行validate操作；如果为true，则得到的jedis实例均是可用的；  
         config.setTestOnBorrow(false);  
     	// 设置最大连接数
-        config.setMaxTotal(300);
+        config.setMaxTotal(500);
         // 设置最大阻塞时间，记住是毫秒数milliseconds
         config.setMaxWaitMillis(100000);
         // 设置空间连接
@@ -40,22 +41,17 @@ public class JedisPoolUtil {
     private static List<JedisShardInfo> getConfig()
     {
     	List<JedisShardInfo> shards = null;
-	    Properties pro = new Properties();  
-	    InputStream in = new BufferedInputStream(JedisPoolUtil.class.getResourceAsStream("/init.properties"));
-	    try {
-			pro.load(in);
-			String servers [] = pro.getProperty("redis.server").split(",");
-			String password = pro.getProperty("redis.password");
-			shards = new ArrayList<JedisShardInfo>();
-			for (int i = 0; i < servers.length; i++) {
-				String [] server = servers[i].split(":");
-				JedisShardInfo si = new JedisShardInfo(server[0], Integer.parseInt(server[1]));
-				si.setPassword(password);
-				shards.add(si);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
+
+		String servers [] = AppConfig.redisServers.split(",");
+		String password = AppConfig.redisPassword;
+		shards = new ArrayList<JedisShardInfo>();
+		for (int i = 0; i < servers.length; i++) {
+			String [] server = servers[i].split(":");
+			JedisShardInfo si = new JedisShardInfo(server[0], Integer.parseInt(server[1]));
+			si.setPassword(password);
+			shards.add(si);
 		}
+
 	    return shards;
 	    
     }

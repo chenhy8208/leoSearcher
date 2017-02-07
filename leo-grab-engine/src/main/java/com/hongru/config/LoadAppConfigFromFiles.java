@@ -54,6 +54,10 @@ public class LoadAppConfigFromFiles {
         AppConfig.numberOfCrawlers = configuration.getInt("numberOfCrawlers");
         AppConfig.politenessDelay = configuration.getInt("politenessDelay");
         AppConfig.storagePath = configuration.getString("storagePath");
+
+        AppConfig.redisServers = configuration.getString("redis.server");
+        AppConfig.redisPassword = configuration.getString("redis.password");
+
         AppConfig.seeds = configuration.getStringArray("seeds");
         if (AppConfig.seeds == null || AppConfig.seeds.length <= 0) {
             AppConfig.seeds = new String[]{configuration.getString("seeds")};
