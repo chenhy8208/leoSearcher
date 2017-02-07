@@ -47,7 +47,7 @@
         <commons-configuration.version>1.10</commons-configuration.version>
         <commons-logging.version>1.2</commons-logging.version>
         <commons-collections.version>3.2.1</commons-collections.version>
-        <junit.version>3.8.1</junit.version>
+        <junit.version>4.12</junit.version>
         <IKAnalyzer.version>5.0</IKAnalyzer.version>
 
     </properties>
@@ -170,12 +170,6 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
