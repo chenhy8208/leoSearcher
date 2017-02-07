@@ -25,9 +25,10 @@ public class App
         AppInit.init();
 
         SpiderLauncher spiderLauncher = null;
-        if (args.length >= 0 && args[0].equals("-r")) {
+        if (args != null && args.length > 0 && args[0].equals("-r")) {
             //爬虫重入
             spiderLauncher = new ReCrawlerLauncher(XHRCrawler.class);
+            System.out.println("爬虫重入模式启动 ... ");
         } else {
             //启动爬虫
             spiderLauncher = new CrawlerLauncher(XHRCrawler.class);

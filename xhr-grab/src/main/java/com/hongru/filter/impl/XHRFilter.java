@@ -12,6 +12,8 @@ public class XHRFilter implements GrabFilter {
 
     @Override
     public boolean filter(WebHtml webHtml) {
+        return true;
+        /*
         for (String keyword: keywords) {
             //标题中含有关键词
             if (StringUtils.contains(webHtml.getMetaTitle(), keyword) &&
@@ -21,6 +23,7 @@ public class XHRFilter implements GrabFilter {
         }
 
         return false;
+        */
     }
 
     private String[] keywords = {
