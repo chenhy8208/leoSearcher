@@ -1,12 +1,12 @@
 package com.hongru.spider;
 
+import com.hongru.common.model.SpiderRecord;
+import com.hongru.common.mongo.MongoUtil;
 import com.hongru.domain.WebHtml;
 import com.hongru.filter.GrabFilter;
 import com.hongru.filter.impl.XHRFilter;
 import com.hongru.loading.Loading;
 import com.hongru.loading.impl.CrawlerLoading;
-import com.hongru.recrawl.Recrawl;
-import com.hongru.recrawl.impl.CrawlerRecrawl;
 import com.hongru.storage.HtmlPersistence;
 import com.hongru.storage.impl.LuceneHtmlPersistence;
 import edu.uci.ics.crawler4j.crawler.Page;
@@ -16,7 +16,7 @@ import edu.uci.ics.crawler4j.url.WebURL;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.Set;
+import java.util.Date;
 import java.util.regex.Pattern;
 
 /**
@@ -69,13 +69,18 @@ public class XHRCrawler extends WebCrawler {
             HtmlPersistence htmlPersistence = new LuceneHtmlPersistence(grabFilter);
             final boolean b = htmlPersistence.filterAndSave(webHtml);
 
-            if (b) {
-                //设置更新重爬
-                Recrawl recrawl = new CrawlerRecrawl(this.getMyController());
-                recrawl.recrawl(webHtml);
-            }
+
+            //插入mongodb,用来以后做更新
+            SpiderRecord record = new SpiderRecord();
+            record.setUrl(webHtml.getUrl());
+            //这个页面有关键数据，设置级别更高
+            //TODO 当前如果第一个页面没有关键数据，后面的即使有也无法再插入mongo了，因为url唯一
+            record.setLevel(b? 1: 0);
+            record.setCreateDate(new Date());
+            record.setPerhapsReviewDate(new Date());
+
+            MongoUtil.insertVisitRecord(record);
 
         }
-
     }
 }

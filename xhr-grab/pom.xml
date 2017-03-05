@@ -20,15 +20,25 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <leo-grab-engine.version>0.1</leo-grab-engine.version>
+    <grab-common.version>1.0</grab-common.version>
+
   </properties>
 
   <dependencies>
 
     <dependency>
       <groupId>com.hongru</groupId>
+      <artifactId>grab-common</artifactId>
+      <version>${grab-common.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.hongru</groupId>
       <artifactId>leo-grab-engine</artifactId>
       <version>${leo-grab-engine.version}</version>
     </dependency>
+
+
 
   </dependencies>
 
