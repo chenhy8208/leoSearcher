@@ -18,6 +18,7 @@ import org.wltea.analyzer.lucene.IKAnalyzer;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Date;
 
 /**
  * Created by chenhongyu on 16/9/28.
@@ -59,6 +60,17 @@ public class ConfigManager {
         }
 
         return indexSearcher;
+    }
+
+    /**
+     * 清除掉indexSearcher
+     */
+    public void cleanup() {
+        if (indexSearcher != null)
+        {
+            indexSearcher = null;
+            System.out.println(new Date() + ":indexSearcher cleaned...");
+        }
     }
 
     public IKAnalyzer getAnalyzer() {

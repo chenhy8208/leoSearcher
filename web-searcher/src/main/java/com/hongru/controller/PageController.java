@@ -83,8 +83,14 @@ public class PageController {
             SearchQuery searchQuery = new DefaultMultiFieldBooleanQuery();
             query = searchQuery.createQuery(configManager.getAnalyzer(), search_query);
 
+            //更新时间倒排序
+            SortField sortF =new SortField("pageUpdateTime", SortField.Type.LONG, true);
+            Sort sort =new Sort(sortF);
+
+            //Sort.RELEVANCE 相关度排序
+
             //分页取纪录
-            topDocs = indexSearcher.search(query, pageVo.getOffset() + pageVo.getRows());
+            topDocs = indexSearcher.search(query, pageVo.getOffset() + pageVo.getRows(), Sort.RELEVANCE);
 
             model.put("findTotalResults", topDocs.totalHits);
 
