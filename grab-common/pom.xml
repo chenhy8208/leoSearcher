@@ -1,0 +1,76 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <artifactId>grab-common</artifactId>
+  <version>1.0</version>
+  <packaging>jar</packaging>
+
+  <name>grab-common</name>
+  <url>http://maven.apache.org</url>
+
+  <parent>
+    <groupId>com.hongru</groupId>
+    <artifactId>grab</artifactId>
+    <version>0.1</version>
+    <relativePath>../grab/pom.xml</relativePath>
+  </parent>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <mongo-java-driver.version>3.4.2</mongo-java-driver.version>
+  </properties>
+
+  <dependencies>
+
+    <dependency>
+      <groupId>org.mongodb</groupId>
+      <artifactId>mongo-java-driver</artifactId>
+      <version>${mongo-java-driver.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+  <resources>
+    <resource>
+      <directory>src/main/resources/config</directory>
+      <includes>
+        <include>*.properties</include>
+        <include>*.xml</include>
+        <include>*.tld</include>
+        <include>*.txt</include>
+      </includes>
+      <filtering>false</filtering>
+      <!--配置文件打包在Jar的外面-->
+      <targetPath>${project.build.directory}/</targetPath>
+    </resource>
+    <resource>
+      <directory>src/main/resources</directory>
+      <includes>
+        <include>*.properties</include>
+        <include>**/*.xml</include>
+        <include>**/*.tld</include>
+        <include>**/*.txt</include>
+      </includes>
+      <filtering>false</filtering>
+    </resource>
+    <resource>
+      <directory>src/main/java</directory>
+      <includes>
+        <include>**/*.properties</include>
+        <include>**/*.xml</include>
+        <include>**/*.tld</include>
+        <include>**/*.txt</include>
+      </includes>
+      <filtering>false</filtering>
+    </resource>
+  </resources>
+  </build>
+</project>
