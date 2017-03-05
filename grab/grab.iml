@@ -21,9 +21,9 @@
       </library>
     </orderEntry>
     <orderEntry type="module-library">
-      <library name="Maven: edu.uci.ics:crawler4j-leo:4.3">
+      <library name="Maven: edu.uci.ics:crawler4j-leo:4.3-by-leo">
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/crawler4j-4.3-jar-with-dependencies.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/crawler4j-4.3-by-leo-jar-with-dependencies.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

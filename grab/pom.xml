@@ -17,17 +17,19 @@
         <module>../leo-grab-engine</module>
         <module>../xhr-grab</module>
         <module>../leo-grab</module>
+        <module>../update-grab</module>
+        <module>../grab-common</module>
     </modules>
 
     <properties>
         <!--更换路径后需修改-->
         <IKAnalyzer.path>/Users/chenhongyu/IdeaProjects/leoSearcher/grab/lib/IKAnalyzer-5.0.jar</IKAnalyzer.path>
-        <crawler4j.path>/Users/chenhongyu/IdeaProjects/leoSearcher/grab/lib/crawler4j-4.3-jar-with-dependencies.jar</crawler4j.path>
+        <crawler4j.path>/Users/chenhongyu/IdeaProjects/leoSearcher/grab/lib/crawler4j-4.3-by-leo-jar-with-dependencies.jar</crawler4j.path>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!--爬虫-->
-        <crawler4j-leo.version>4.3</crawler4j-leo.version>
+        <crawler4j-leo.version>4.3-by-leo</crawler4j-leo.version>
 
         <!--Lucene-->
         <lucene-core.version>6.2.1</lucene-core.version>
